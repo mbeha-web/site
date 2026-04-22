@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png?v=20260422" sizes="96x96" />
+<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png?v=20260422" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg?v=20260422" />
 <link rel="shortcut icon" href="/favicon/favicon.ico?v=20260422" />
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png?v=20260422" />
 <meta name="apple-mobile-web-app-title" content="Mbeha Attorneys" />
 <link rel="manifest" href="/favicon/site.webmanifest?v=20260422" />
+  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mbeha Attorneys | Attorneys, Notaries & Conveyancers</title>
+
+  <!-- 1. Preconnect to external origins FIRST -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+
+  <!-- 2. Preload the hero image so it's ready before paint -->
+  <link rel="preload" as="image" href="images/FB_IMG_1776800232523.png" fetchpriority="high" />
+
+  <!-- 3. Google Fonts — display=swap prevents FOIT -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <!-- 4. Font Awesome deferred — loaded after page renders -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" /></noscript>
 
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,292 +34,147 @@
     :root {
       --navy:       #0b1624;
       --navy-mid:   #142035;
-      --navy-light: #1e2f4a;
       --gold:       #c4973f;
       --gold-light: #ddb96a;
       --cream:      #f4efe6;
       --white:      #ffffff;
-      --text-dark:  #1a1a1a;
       --text-body:  #3d3d3d;
       --text-muted: #7a7a7a;
     }
 
-    body {
-      font-family: 'Lato', sans-serif;
-      color: var(--text-dark);
-      background: var(--white);
-      overflow-x: hidden;
-    }
-
+    body { font-family: 'Lato', sans-serif; color: var(--text-body); background: var(--white); overflow-x: hidden; }
     h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; letter-spacing: 0.02em; }
     a { text-decoration: none; color: inherit; }
-    img { display: block; width: 100%; }
+
+    /* img defaults — width only where needed */
+    img { display: block; max-width: 100%; height: auto; }
 
     .container { width: 92%; max-width: 1200px; margin: 0 auto; }
+    .gold-line { width: 48px; height: 1px; background: var(--gold); display: block; margin-bottom: 28px; }
+    .tag { font-family: 'Lato', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
 
-    .gold-line { width: 48px; height: 1px; background: var(--gold); display: block; }
-
-    .tag {
-      font-family: 'Lato', sans-serif;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 100;
-      transition: background 0.4s, box-shadow 0.4s;
-    }
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: background 0.4s, box-shadow 0.4s; }
     nav.scrolled { background: var(--navy); box-shadow: 0 2px 24px rgba(0,0,0,0.4); }
-
-    .nav-inner {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 0;
-    }
-
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; }
     .nav-logo { display: flex; align-items: center; gap: 14px; }
     .nav-logo img { width: 48px; height: 48px; object-fit: contain; filter: brightness(0) invert(1); }
     .nav-logo-text { line-height: 1.2; }
-    .nav-logo-text strong {
-      display: block;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 19px; font-weight: 400;
-      color: var(--white); letter-spacing: 0.08em;
-    }
-    .nav-logo-text span {
-      font-size: 9px; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--gold);
-    }
-
+    .nav-logo-text strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 400; color: var(--white); letter-spacing: 0.08em; }
+    .nav-logo-text span { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
     .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
-    .nav-links a {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
-      text-transform: uppercase; color: rgba(255,255,255,0.8);
-      transition: color 0.2s; position: relative;
-    }
-    .nav-links a::after {
-      content: ''; position: absolute;
-      bottom: -4px; left: 0; right: 0; height: 1px;
-      background: var(--gold); transform: scaleX(0);
-      transform-origin: left; transition: transform 0.3s;
-    }
+    .nav-links a { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.8); transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
     .nav-links a:hover { color: var(--white); }
     .nav-links a:hover::after { transform: scaleX(1); }
-
     .nav-socials { display: flex; gap: 16px; }
     .nav-socials a { color: rgba(255,255,255,0.6); font-size: 14px; transition: color 0.2s; }
     .nav-socials a:hover { color: var(--gold); }
 
-    /* HERO */
-    .hero {
-      position: relative; height: 100vh; min-height: 680px;
-      display: flex; align-items: flex-end; overflow: hidden;
-    }
+    /* ── HERO ── */
+    .hero { position: relative; height: 100vh; min-height: 680px; display: flex; align-items: flex-end; overflow: hidden; }
+
+    /* Critical: hero bg loaded via preloaded image above — no extra request */
     .hero-bg {
       position: absolute; inset: 0;
       background-image: url('images/FB_IMG_1776800232523.png');
       background-size: cover; background-position: center top;
-      transform: scale(1.04); animation: heroZoom 14s ease-out forwards;
+      transform: scale(1.04);
+      animation: heroZoom 14s ease-out forwards;
+      will-change: transform; /* GPU layer hint */
     }
-    @keyframes heroZoom {
-      from { transform: scale(1.04); }
-      to   { transform: scale(1); }
-    }
+    @keyframes heroZoom { from { transform: scale(1.04); } to { transform: scale(1); } }
+
     .hero-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to top, rgba(11,22,36,0.97) 0%, rgba(11,22,36,0.58) 50%, rgba(11,22,36,0.28) 100%);
     }
-    .hero-content {
-      position: relative; z-index: 2;
-      padding-bottom: 96px; width: 100%;
-      animation: fadeUp 1s 0.3s both ease-out;
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(32px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    .hero-content { position: relative; z-index: 2; padding-bottom: 96px; width: 100%; animation: fadeUp 0.8s 0.2s both ease-out; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
 
-    .hero-heading-row {
-      display: flex; align-items: flex-start;
-      gap: 28px; margin-bottom: 24px;
-    }
-
-    .hero h1 {
-      font-size: clamp(48px, 6vw, 82px);
-      color: var(--white); line-height: 1.05;
-      font-weight: 600; flex: 1;
-    }
+    .hero-heading-row { display: flex; align-items: flex-start; gap: 28px; margin-bottom: 24px; }
+    .hero h1 { font-size: clamp(48px, 6vw, 82px); color: var(--white); line-height: 1.05; font-weight: 600; flex: 1; }
     .hero h1 em { font-style: italic; color: var(--gold-light); font-weight: 600; }
 
-    /* BADGE */
-    .hero-badge {
-      width: 100px; height: 100px; border-radius: 50%;
-      border: 2px solid var(--gold);
-      background: rgba(11,22,36,0.8);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      flex-shrink: 0; margin-top: 10px; text-align: center; padding: 8px;
-    }
-    .hero-badge .badge-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 30px; font-weight: 700;
-      color: var(--gold); line-height: 1;
-    }
-    .hero-badge .badge-txt {
-      font-size: 8.5px; font-weight: 700;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: rgba(255,255,255,0.85); line-height: 1.3; margin-top: 4px;
-    }
+    .hero-badge { width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--gold); background: rgba(11,22,36,0.8); display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 10px; text-align: center; padding: 8px; }
+    .hero-badge .badge-num { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 700; color: var(--gold); line-height: 1; }
+    .hero-badge .badge-txt { font-size: 8.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.85); line-height: 1.3; margin-top: 4px; }
 
-    .hero p {
-      font-size: 15px; color: rgba(255,255,255,0.75);
-      line-height: 1.75; max-width: 560px;
-      margin-bottom: 40px; font-weight: 300;
-    }
+    .hero p { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.75; max-width: 560px; margin-bottom: 40px; font-weight: 300; }
     .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
 
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 14px 32px; background: var(--gold); color: var(--navy);
-      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; transition: background 0.25s, transform 0.2s;
-    }
+    .btn-primary { display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; background: var(--gold); color: var(--navy); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; transition: background 0.25s, transform 0.2s; }
     .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
-
-    .btn-whatsapp {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 13px 32px;
-      border: 1px solid rgba(255,255,255,0.4); color: var(--white);
-      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; transition: border-color 0.25s, background 0.25s;
-    }
+    .btn-whatsapp { display: inline-flex; align-items: center; gap: 10px; padding: 13px 32px; border: 1px solid rgba(255,255,255,0.4); color: var(--white); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; transition: border-color 0.25s, background 0.25s; }
     .btn-whatsapp:hover { border-color: var(--gold); background: rgba(196,151,63,0.1); }
 
-    /* ABOUT */
+    /* ── ABOUT ── */
     .about { padding: 110px 0; background: var(--cream); }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
     .about-img-wrap { position: relative; }
-    .about-img-wrap img { height: 520px; object-fit: cover; }
-    .about-img-badge {
-      position: absolute; bottom: -24px; right: -24px;
-      background: var(--navy); color: var(--white); padding: 28px 32px; width: 180px;
-    }
-    .about-img-badge span {
-      display: block; font-family: 'Cormorant Garamond', serif;
-      font-size: 48px; font-weight: 300; color: var(--gold); line-height: 1;
-    }
-    .about-img-badge p {
-      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-      color: rgba(255,255,255,0.7); margin-top: 6px;
-    }
+    .about-img-wrap img { width: 100%; height: 520px; object-fit: cover; }
+    .about-img-badge { position: absolute; bottom: -24px; right: -24px; background: var(--navy); color: var(--white); padding: 28px 32px; width: 180px; }
+    .about-img-badge span { display: block; font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: var(--gold); line-height: 1; }
+    .about-img-badge p { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-top: 6px; }
     .about-text .tag { margin-bottom: 16px; }
     .about-text h2 { font-size: clamp(32px, 3.5vw, 48px); line-height: 1.2; margin-bottom: 20px; color: var(--navy); font-weight: 400; }
-    .gold-line { margin-bottom: 28px; }
     .about-text p { font-size: 15px; line-height: 1.85; color: var(--text-body); margin-bottom: 16px; font-weight: 300; }
     .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
     .about-feature { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--text-body); }
     .about-feature i { color: var(--gold); margin-top: 2px; font-size: 12px; flex-shrink: 0; }
 
-    /* SERVICES */
+    /* ── SERVICES ── */
     .services { padding: 110px 0; background: var(--navy); }
     .section-header { text-align: center; margin-bottom: 56px; }
     .section-header .tag { margin-bottom: 14px; }
     .section-header h2 { font-size: clamp(32px, 4vw, 52px); color: var(--white); line-height: 1.15; margin-bottom: 18px; font-weight: 400; }
     .section-header p { font-size: 15px; color: rgba(255,255,255,0.55); max-width: 520px; margin: 0 auto; line-height: 1.75; font-weight: 300; }
-
     .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
-
-    .service-card { position: relative; overflow: hidden; cursor: pointer; height: 300px; }
-    .service-card img {
-      height: 100%; object-fit: cover;
-      transition: transform 0.6s ease;
-      filter: brightness(0.5) saturate(0.6);
-    }
+    .service-card { position: relative; overflow: hidden; cursor: pointer; height: 300px; background: var(--navy-mid, #142035); }
+    .service-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; filter: brightness(0.5) saturate(0.6); }
     .service-card:hover img { transform: scale(1.07); filter: brightness(0.28) saturate(0.4); }
-    .service-card-overlay {
-      position: absolute; inset: 0;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 22px 18px;
-      background: linear-gradient(to top, rgba(11,22,36,0.93) 0%, transparent 65%);
-      transition: background 0.4s;
-    }
-    .service-card:hover .service-card-overlay {
-      background: linear-gradient(to top, rgba(11,22,36,0.98) 0%, rgba(11,22,36,0.4) 100%);
-    }
-    .service-card-icon {
-      width: 36px; height: 36px; border: 1px solid var(--gold);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--gold); font-size: 13px; margin-bottom: 9px;
-      opacity: 0; transform: translateY(10px);
-      transition: opacity 0.35s, transform 0.35s;
-    }
+    .service-card-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 22px 18px; background: linear-gradient(to top, rgba(11,22,36,0.93) 0%, transparent 65%); transition: background 0.4s; }
+    .service-card:hover .service-card-overlay { background: linear-gradient(to top, rgba(11,22,36,0.98) 0%, rgba(11,22,36,0.4) 100%); }
+    .service-card-icon { width: 36px; height: 36px; border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 13px; margin-bottom: 9px; opacity: 0; transform: translateY(10px); transition: opacity 0.35s, transform 0.35s; }
     .service-card:hover .service-card-icon { opacity: 1; transform: translateY(0); }
     .service-card h3 { font-size: 17px; color: var(--white); font-weight: 400; margin-bottom: 7px; line-height: 1.25; }
-    .service-card p {
-      font-size: 11.5px; color: rgba(255,255,255,0.65); line-height: 1.6;
-      max-height: 0; overflow: hidden; transition: max-height 0.4s ease; font-weight: 300;
-    }
+    .service-card p { font-size: 11.5px; color: rgba(255,255,255,0.65); line-height: 1.6; max-height: 0; overflow: hidden; transition: max-height 0.4s ease; font-weight: 300; }
     .service-card:hover p { max-height: 90px; }
-    .service-card .gold-line { margin-bottom: 9px; width: 28px; }
+    .service-card .s-line { width: 28px; height: 1px; background: var(--gold); display: block; margin-bottom: 9px; }
 
-    /* WHY */
+    /* ── WHY ── */
     .why { padding: 110px 0; background: var(--cream); }
     .why .section-header h2 { color: var(--navy); }
-    .why .section-header p  { color: var(--text-muted); }
+    .why .section-header p { color: var(--text-muted); }
     .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 60px; }
     .why-card { background: var(--white); padding: 48px 36px; position: relative; overflow: hidden; transition: transform 0.3s; }
-    .why-card::before {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
-      background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
-    }
+    .why-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
     .why-card:hover { transform: translateY(-4px); }
     .why-card:hover::before { transform: scaleX(1); }
     .why-icon { width: 56px; height: 56px; background: var(--navy); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 20px; margin-bottom: 28px; }
     .why-card h3 { font-size: 22px; color: var(--navy); margin-bottom: 14px; font-weight: 400; }
     .why-card p { font-size: 14px; color: var(--text-muted); line-height: 1.8; font-weight: 300; }
 
-    /* QUOTE */
-    .courts-banner { position: relative; height: 320px; overflow: hidden; display: flex; align-items: center; }
-    .courts-banner-bg {
-      position: absolute; inset: 0;
-      background-image: url('images/FB_IMG_1776800276950.jpg');
-      background-size: cover; background-position: center;
-      filter: brightness(0.25) saturate(0.4);
-    }
+    /* ── QUOTE ── */
+    .courts-banner { position: relative; height: 300px; overflow: hidden; display: flex; align-items: center; }
+    .courts-banner-bg { position: absolute; inset: 0; background-image: url('images/FB_IMG_1776800276950.jpg'); background-size: cover; background-position: center; filter: brightness(0.25) saturate(0.4); }
     .courts-banner-content { position: relative; z-index: 2; text-align: center; width: 100%; }
-    .courts-banner-content blockquote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(22px, 3.5vw, 38px); font-style: italic;
-      color: var(--white); font-weight: 300; max-width: 760px;
-      margin: 0 auto 20px; line-height: 1.4;
-    }
+    .courts-banner-content blockquote { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 3vw, 36px); font-style: italic; color: var(--white); font-weight: 300; max-width: 760px; margin: 0 auto 18px; line-height: 1.4; }
     .courts-banner-content cite { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-style: normal; }
 
-    /* CONTACT */
+    /* ── CONTACT ── */
     .contact { padding: 110px 0; background: var(--navy-mid); }
     .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
     .contact-info .tag { margin-bottom: 16px; }
     .contact-info h2 { font-size: clamp(30px, 3vw, 44px); color: var(--white); line-height: 1.2; margin-bottom: 16px; font-weight: 400; }
-    .gold-line-white { width: 48px; height: 1px; background: var(--gold); display: block; margin-bottom: 28px; }
+    .gold-line-w { width: 48px; height: 1px; background: var(--gold); display: block; margin-bottom: 28px; }
     .contact-info p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.85; font-weight: 300; }
-
     .contact-form-wrap { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 48px 40px; }
     .contact-form-wrap h3 { font-size: 26px; color: var(--white); margin-bottom: 28px; font-weight: 300; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .form-group { margin-bottom: 18px; }
     .form-group label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%; background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12); padding: 12px 16px;
-      color: var(--white); font-family: 'Lato', sans-serif; font-size: 14px;
-      font-weight: 300; outline: none; transition: border-color 0.2s; appearance: none;
-    }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); padding: 12px 16px; color: var(--white); font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 300; outline: none; transition: border-color 0.2s; appearance: none; }
     .form-group select option { background: var(--navy); }
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
     .form-group textarea { resize: vertical; min-height: 110px; }
@@ -315,65 +182,58 @@
     .btn-form { width: 100%; padding: 14px; background: var(--gold); color: var(--navy); font-family: 'Lato', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.25s; }
     .btn-form:hover { background: var(--gold-light); }
 
-    /* FOOTER */
+    /* ── FOOTER ── */
     footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,0.06); }
     .footer-top { padding: 64px 0 48px; display: grid; grid-template-columns: 1.5fr 1.1fr 0.8fr 1.2fr; gap: 40px; }
-
     .footer-brand img { width: 52px; height: 52px; object-fit: contain; filter: brightness(0) invert(1); margin-bottom: 14px; }
     .footer-brand strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--white); letter-spacing: 0.06em; margin-bottom: 2px; }
     .footer-brand .sub { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 18px; }
     .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.8; font-weight: 300; max-width: 240px; }
-
     .footer-socials { display: flex; gap: 12px; margin-top: 24px; }
     .footer-socials a { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5); font-size: 13px; transition: border-color 0.2s, color 0.2s; }
     .footer-socials a:hover { border-color: var(--gold); color: var(--gold); }
-
-    .footer-col h4 { font-family: 'Lato', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .footer-col h4 { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
     .footer-col ul { list-style: none; }
     .footer-col ul li { margin-bottom: 10px; }
     .footer-col ul li a { font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 300; transition: color 0.2s; display: flex; align-items: center; gap: 8px; }
     .footer-col ul li a::before { content: ''; width: 12px; height: 1px; background: var(--gold); opacity: 0; transition: opacity 0.2s; flex-shrink: 0; }
     .footer-col ul li a:hover { color: rgba(255,255,255,0.85); }
     .footer-col ul li a:hover::before { opacity: 1; }
-
-    /* Footer contact column */
     .footer-contact-items { display: flex; flex-direction: column; gap: 15px; }
     .footer-contact-item { display: flex; align-items: flex-start; gap: 11px; }
     .footer-contact-item > i { color: var(--gold); font-size: 13px; margin-top: 3px; flex-shrink: 0; width: 14px; }
     .footer-contact-item-text strong { display: block; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 3px; }
-    .footer-contact-item-text span,
-    .footer-contact-item-text a { font-size: 12px; color: rgba(255,255,255,0.6); font-weight: 300; line-height: 1.6; display: block; transition: color 0.2s; }
+    .footer-contact-item-text span, .footer-contact-item-text a { font-size: 12px; color: rgba(255,255,255,0.6); font-weight: 300; line-height: 1.6; display: block; transition: color 0.2s; }
     .footer-contact-item-text a:hover { color: var(--gold); }
-
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding: 20px 0; text-align: center; }
     .footer-bottom p { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.05em; }
 
-    /* REVEAL */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
 
-    /* RESPONSIVE */
+    /* ── RESPONSIVE ── */
     @media (max-width: 1060px) {
       .services-grid { grid-template-columns: repeat(2, 1fr); }
-      .footer-top    { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
     }
     @media (max-width: 960px) {
-      .about-grid   { grid-template-columns: 1fr; gap: 48px; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
       .about-img-wrap img { height: 380px; }
       .about-img-badge { display: none; }
       .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-      .why-grid     { grid-template-columns: 1fr 1fr; gap: 2px; }
+      .why-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
     }
     @media (max-width: 680px) {
       .nav-links { display: none; }
       .services-grid { grid-template-columns: 1fr 1fr; }
-      .why-grid  { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr; }
-      .form-row  { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
       .hero-badge { width: 82px; height: 82px; }
       .hero-badge .badge-num { font-size: 24px; }
     }
@@ -386,7 +246,8 @@
     <div class="container">
       <div class="nav-inner">
         <a href="#" class="nav-logo">
-          <img src="images/FB_IMG_1776800093911.png" alt="Mbeha Attorneys Logo" />
+          <!-- Logo is above fold — no lazy loading -->
+          <img src="images/FB_IMG_1776800093911.png" alt="Mbeha Attorneys Logo" width="48" height="48" />
           <div class="nav-logo-text">
             <strong>Mbeha Attorneys</strong>
             <span>Attorneys · Notaries · Conveyancers</span>
@@ -399,15 +260,15 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-socials">
-          <a href="https://www.facebook.com/mbehaattorneys" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://wa.me/26776518494?text=Hi%2C%20would%20like%20to%20know%20more%20about%20your%20services." target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.facebook.com/mbehaattorneys" target="_blank" rel="noopener" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://wa.me/26776518494?text=Hi%2C%20would%20like%20to%20know%20more%20about%20your%20services." target="_blank" rel="noopener" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
           <a href="mailto:info@mbehaattorneys.co.bw" title="Email"><i class="fas fa-envelope"></i></a>
         </div>
       </div>
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO — bg image already preloaded in <head> -->
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
@@ -423,7 +284,7 @@
         <p>Mbeha Attorneys is a General practice firm, offering services in criminal law, civil litigation, commercial law, family law, conveyancing, and more.</p>
         <div class="hero-ctas">
           <a href="#contact" class="btn-primary">Book a Consultation <i class="fas fa-arrow-right"></i></a>
-          <a href="https://wa.me/26776518494?text=Hi%2C%20would%20like%20to%20know%20more%20about%20your%20services." target="_blank" class="btn-whatsapp">
+          <a href="https://wa.me/26776518494?text=Hi%2C%20would%20like%20to%20know%20more%20about%20your%20services." target="_blank" rel="noopener" class="btn-whatsapp">
             <i class="fab fa-whatsapp"></i> Contact Us on WhatsApp
           </a>
         </div>
@@ -436,7 +297,8 @@
     <div class="container">
       <div class="about-grid">
         <div class="about-img-wrap reveal">
-          <img src="images/FB_IMG_1776800203781.jpg" alt="Mbeha Attorneys consultation" />
+          <!-- loading="lazy" + explicit dimensions = no layout shift -->
+          <img src="images/FB_IMG_1776800203781.jpg" alt="Mbeha Attorneys consultation" width="600" height="520" loading="lazy" decoding="async" />
           <div class="about-img-badge">
             <span>10+</span>
             <p>Years of trusted legal service</p>
@@ -473,80 +335,80 @@
     <div class="services-grid">
 
       <div class="service-card reveal">
-        <img src="images/FB_IMG_1776800190427.jpg" alt="Bankruptcy or Liquidation" />
+        <img src="images/FB_IMG_1776800190427.jpg" alt="Bankruptcy or Liquidation" width="400" height="300" loading="lazy" decoding="async" />
         <div class="service-card-overlay">
           <div class="service-card-icon"><i class="fas fa-chart-line"></i></div>
-          <span class="gold-line"></span>
+          <span class="s-line"></span>
           <h3>Bankruptcy or Liquidation</h3>
-          <p>We protect you from aggressive debt collectors and creditors. You don't have to lose your job or face civil imprisonment — we offer tailored solutions to navigate these situations.</p>
+          <p>We protect you from aggressive debt collectors and creditors. You don't have to lose your job or face civil imprisonment — we offer tailored solutions.</p>
         </div>
       </div>
 
       <div class="service-card reveal reveal-delay-1">
-        <img src="images/FB_IMG_1776800246251.jpg" alt="Land Disputes" />
+        <img src="images/FB_IMG_1776800246251.jpg" alt="Land Disputes" width="400" height="300" loading="lazy" decoding="async" />
         <div class="service-card-overlay">
           <div class="service-card-icon"><i class="fas fa-map-marked-alt"></i></div>
-          <span class="gold-line"></span>
+          <span class="s-line"></span>
           <h3>Land Disputes</h3>
           <p>Expert resolution of land and property conflicts, title transfers, boundary disputes, and unlawful evictions under Botswana's property law framework.</p>
         </div>
       </div>
 
       <div class="service-card reveal reveal-delay-2">
-        <img src="images/FB_IMG_1776800183370.jpg" alt="Civil Disputes" />
+        <img src="images/FB_IMG_1776800183370.jpg" alt="Civil Disputes" width="400" height="300" loading="lazy" decoding="async" />
         <div class="service-card-overlay">
           <div class="service-card-icon"><i class="fas fa-gavel"></i></div>
-          <span class="gold-line"></span>
+          <span class="s-line"></span>
           <h3>Civil Disputes</h3>
           <p>Strategic representation in civil claims including breach of contract, damages, debt recovery, and injunctions before the Magistrate and High Courts.</p>
         </div>
       </div>
 
       <div class="service-card reveal reveal-delay-3">
-        <img src="images/FB_IMG_1776800177287.jpg" alt="General Criminal Litigation" />
+        <img src="images/FB_IMG_1776800177287.jpg" alt="General Criminal Litigation" width="400" height="300" loading="lazy" decoding="async" />
         <div class="service-card-overlay">
           <div class="service-card-icon"><i class="fas fa-balance-scale"></i></div>
-          <span class="gold-line"></span>
+          <span class="s-line"></span>
           <h3>General Criminal Litigation</h3>
           <p>Robust criminal defence from arrest through trial. We safeguard your constitutional rights and fight for the best possible outcome in every case.</p>
         </div>
       </div>
 
       <div class="service-card reveal">
-        <img src="images/FB_IMG_1776800226425.jpg" alt="Road Traffic Offences" />
+        <img src="images/FB_IMG_1776800226425.jpg" alt="Road Traffic Offences" width="400" height="300" loading="lazy" decoding="async" />
         <div class="service-card-overlay">
           <div class="service-card-icon"><i class="fas fa-car-crash"></i></div>
-          <span class="gold-line"></span>
+          <span class="s-line"></span>
           <h3>Road Traffic Offences</h3>
           <p>Defending clients against traffic charges including reckless driving, DUI, licence suspensions, and accident-related claims under Botswana traffic law.</p>
         </div>
       </div>
 
       <div class="service-card reveal reveal-delay-1">
-        <img src="images/FB_IMG_1776800194442.jpg" alt="Conveyancing and Notary" />
+        <img src="images/FB_IMG_1776800194442.jpg" alt="Conveyancing and Notary" width="400" height="300" loading="lazy" decoding="async" />
         <div class="service-card-overlay">
           <div class="service-card-icon"><i class="fas fa-stamp"></i></div>
-          <span class="gold-line"></span>
+          <span class="s-line"></span>
           <h3>Conveyancing &amp; Notary</h3>
-          <p>Professional property transfers, deed registration, notarial services, antenuptial contracts, and all conveyancing matters handled with precision and care.</p>
+          <p>Professional property transfers, deed registration, notarial services, antenuptial contracts, and all conveyancing matters handled with precision.</p>
         </div>
       </div>
 
       <div class="service-card reveal reveal-delay-2">
-        <img src="images/FB_IMG_1776800198600.jpg" alt="Business and Commercial" />
+        <img src="images/FB_IMG_1776800198600.jpg" alt="Business and Commercial" width="400" height="300" loading="lazy" decoding="async" />
         <div class="service-card-overlay">
           <div class="service-card-icon"><i class="fas fa-briefcase"></i></div>
-          <span class="gold-line"></span>
+          <span class="s-line"></span>
           <h3>Business &amp; Commercial</h3>
-          <p>Corporate structuring, contract drafting, regulatory compliance, and commercial dispute resolution to protect and grow your business interests effectively.</p>
+          <p>Corporate structuring, contract drafting, regulatory compliance, and commercial dispute resolution to protect and grow your business interests.</p>
         </div>
       </div>
 
       <div class="service-card reveal reveal-delay-3">
-        <img src="images/FB_IMG_1776800249998.jpg" alt="Family and Domestic" />
+        <img src="images/FB_IMG_1776800249998.jpg" alt="Family and Domestic" width="400" height="300" loading="lazy" decoding="async" />
         <div class="service-card-overlay">
           <div class="service-card-icon"><i class="fas fa-home"></i></div>
-          <span class="gold-line"></span>
+          <span class="s-line"></span>
           <h3>Family &amp; Domestic</h3>
           <p>Compassionate guidance through divorce, child custody, maintenance, domestic violence protection orders, and all family law matters in Botswana.</p>
         </div>
@@ -555,7 +417,7 @@
     </div>
   </section>
 
-  <!-- WHY CHOOSE -->
+  <!-- WHY -->
   <section class="why" id="why">
     <div class="container">
       <div class="section-header reveal">
@@ -599,25 +461,16 @@
         <div class="contact-info reveal">
           <span class="tag">Get in Touch</span>
           <h2>We're Ready<br />to Help You</h2>
-          <span class="gold-line-white"></span>
+          <span class="gold-line-w"></span>
           <p>Whether your matter is urgent or you simply need to understand your options, our team is available to assist. Send us a message and we'll get back to you promptly.</p>
         </div>
         <div class="contact-form-wrap reveal reveal-delay-2">
           <h3>Send Us a Message</h3>
           <div class="form-row">
-            <div class="form-group">
-              <label>First Name</label>
-              <input type="text" placeholder="John" />
-            </div>
-            <div class="form-group">
-              <label>Last Name</label>
-              <input type="text" placeholder="Doe" />
-            </div>
+            <div class="form-group"><label>First Name</label><input type="text" placeholder="John" /></div>
+            <div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe" /></div>
           </div>
-          <div class="form-group">
-            <label>Phone Number</label>
-            <input type="tel" placeholder="+267 7X XXX XXX" />
-          </div>
+          <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+267 7X XXX XXX" /></div>
           <div class="form-group">
             <label>Area of Law</label>
             <select>
@@ -633,10 +486,7 @@
               <option>Other</option>
             </select>
           </div>
-          <div class="form-group">
-            <label>Brief Description</label>
-            <textarea placeholder="Briefly describe your legal matter..."></textarea>
-          </div>
+          <div class="form-group"><label>Brief Description</label><textarea placeholder="Briefly describe your legal matter..."></textarea></div>
           <button class="btn-form">Send Enquiry <i class="fas fa-paper-plane" style="margin-left:8px;"></i></button>
         </div>
       </div>
@@ -647,20 +497,18 @@
   <footer>
     <div class="container">
       <div class="footer-top">
-
         <div class="footer-brand">
-          <img src="images/FB_IMG_1776800093911.png" alt="Mbeha Attorneys" />
+          <img src="images/FB_IMG_1776800093911.png" alt="Mbeha Attorneys" width="52" height="52" loading="lazy" decoding="async" />
           <strong>Mbeha Attorneys</strong>
           <span class="sub">Attorneys · Notaries · Conveyancers</span>
           <p>Trusted legal counsel in Kasane and across Botswana. Committed to justice, professionalism, and your peace of mind.</p>
           <div class="footer-socials">
-            <a href="https://www.facebook.com/mbehaattorneys" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://wa.me/26776518494?text=Hi%2C%20would%20like%20to%20know%20more%20about%20your%20services." target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://www.google.com/maps/place/MBEHA+ATTORNEYS+KASANE" target="_blank" title="Google Maps"><i class="fab fa-google"></i></a>
+            <a href="https://www.facebook.com/mbehaattorneys" target="_blank" rel="noopener" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/26776518494?text=Hi%2C%20would%20like%20to%20know%20more%20about%20your%20services." target="_blank" rel="noopener" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.google.com/maps/place/MBEHA+ATTORNEYS+KASANE" target="_blank" rel="noopener" title="Google Maps"><i class="fab fa-google"></i></a>
             <a href="mailto:info@mbehaattorneys.co.bw" title="Email"><i class="fas fa-envelope"></i></a>
           </div>
         </div>
-
         <div class="footer-col">
           <h4>Practice Areas</h4>
           <ul>
@@ -674,7 +522,6 @@
             <li><a href="#services">Family &amp; Domestic</a></li>
           </ul>
         </div>
-
         <div class="footer-col">
           <h4>Quick Links</h4>
           <ul>
@@ -684,7 +531,6 @@
             <li><a href="#contact">Contact Us</a></li>
           </ul>
         </div>
-
         <div class="footer-col">
           <h4>Contact</h4>
           <div class="footer-contact-items">
@@ -717,12 +563,11 @@
               <i class="fab fa-whatsapp"></i>
               <div class="footer-contact-item-text">
                 <strong>WhatsApp</strong>
-                <a href="https://wa.me/26776518494?text=Hi%2C%20would%20like%20to%20know%20more%20about%20your%20services." target="_blank">+267 76 518 494</a>
+                <a href="https://wa.me/26776518494?text=Hi%2C%20would%20like%20to%20know%20more%20about%20your%20services." target="_blank" rel="noopener">+267 76 518 494</a>
               </div>
             </div>
           </div>
         </div>
-
       </div>
       <div class="footer-bottom">
         <p>&copy; 2025 Mbeha Attorneys. All rights reserved. Registered Law Firm — Botswana.</p>
@@ -730,18 +575,26 @@
     </div>
   </footer>
 
-  <script>
+  <!-- JS deferred — runs after page is interactive -->
+  <script defer>
+    // Sticky nav
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 60);
-    });
+    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Intersection-based reveal — batched for performance
     const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-      });
-    }, { threshold: 0.12 });
-    reveals.forEach(el => observer.observe(el));
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(el => io.observe(el));
+    } else {
+      // Fallback for very old browsers
+      reveals.forEach(el => el.classList.add('visible'));
+    }
   </script>
 
 </body>
